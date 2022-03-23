@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import BreweryCard from './BreweryCard/BreweryCard';
+import Grid from '@material-ui/core/Grid';
 
 const testBrew: Brewery = {
   id: 64,
@@ -19,9 +20,28 @@ const testBrew: Brewery = {
   created_at: "2021-10-23T02:24:55.243Z"
 }
 
+const testBrew2: Brewery = {
+  id: 65,
+  name: "Brewing Company",
+  brewery_type: "micro",
+  street: "n Cir",
+  city: "Knox",
+  state: "Indiana",
+  postal_code: "46534",
+  country: "United States",
+  longitude: "-86.627954",
+  latitude: "41.289715",
+  phone: "6308165790",
+  website_url: null,
+  updated_at: "2021-10-23T02:24:55.243Z",
+  created_at: "2021-10-23T02:24:55.243Z"
+}
+
+const testbrewArr: Brewery[] = []
+
 
 export type Brewery = {
-  id: number, 
+  id: number | string, 
   name: string,
   brewery_type: string,
   street: string,
@@ -80,7 +100,20 @@ function App() {
         <input type="text" value={brewSearch} required onChange={(e) => {handleChange(e)}}></input>
         <input type="submit" value="SEARCH"/>
       </form>
-      <BreweryCard data={testBrew} />
+      <div>
+      <Grid 
+        container 
+        spacing={3} 
+        direction="row"
+        justifyContent="center"
+        alignItems="center">
+        {brewData?.map(brewery => (
+          <Grid item key={brewery.id} xs={12} lg={12}>
+            <BreweryCard data={brewery} />
+          </Grid>
+        ))}
+      </Grid>
+      </div>
     </div>
   );
 }
