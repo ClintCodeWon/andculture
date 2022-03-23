@@ -64,9 +64,10 @@ function App() {
 
   const [brewData, setBrewData] = useState([] as Brewery[]);
   const [brewSearch, setBrewSearch] = useState('');
+  const [brewDetailOpen, setBrewDetailOpen] = useState(false);
 
   const loadAllBrew = async () => {
-    const result = await fetch(`https://api.openbrewerydb.org/breweries`);
+    const result = await fetch(`https://api.openbrewerydb.org/breweries?per_page=20`);
     const json = await result.json();
     setBrewData(json);
     console.log(json);
@@ -108,7 +109,7 @@ function App() {
         justifyContent="center"
         alignItems="center">
         {brewData?.map(brewery => (
-          <Grid item key={brewery.id} xs={12} lg={12}>
+          <Grid item key={brewery.id} xs={12} sm={4}>
             <BreweryCard data={brewery} />
           </Grid>
         ))}
