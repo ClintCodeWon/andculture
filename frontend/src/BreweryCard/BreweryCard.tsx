@@ -15,6 +15,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import BreweryMap from './BreweryMap';
 
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
@@ -36,10 +37,6 @@ type Props = {
 }
 
 const BreweryCard: React.FC<Props> = ({data}) => {
-
-    const titleComp = () => {
-        return <p>{data.name}</p>
-    }
     // useEffect(() => {
     //     console.log(`data ${data.name}`);
     // })
@@ -50,23 +47,38 @@ const BreweryCard: React.FC<Props> = ({data}) => {
         setExpanded(!expanded);
     }
 
+    const hadCoordinates = (data.latitude != null && data.longitude != null) ? true : false
     return (
         <div>
             <Card>
                 <CardHeader
-                    avatar={
-                        <Avatar sx={{ bgcolor: orange[400] }} aria-label="Brewery">
-                            B
-                        </Avatar>
-                    }
-                    action={
-                        <IconButton aria-label="settings">
-                          <MoreVertIcon />
-                        </IconButton>
-                    }title={data.name}
-                    subheader={titleComp}
+                    title={data.name}
+                    subheader={data.brewery_type}
                 />
-
+    
+                <CardContent>
+                    <Typography variant="body2" color="text.secondary">
+                    This impressive paella is a perfect party dish and a fun meal to cook
+                    </Typography>
+                </CardContent>
+                <CardActions disableSpacing>
+                    <ExpandMore
+                    expand={expanded}
+                    onClick={handleExpandClick}
+                    aria-expanded={expanded}
+                    aria-label="show more"
+                    >
+                    <ExpandMoreIcon />
+                    </ExpandMore>
+                </CardActions>
+                <Collapse in={expanded} timeout="auto" unmountOnExit={true}>
+                    <CardContent>
+                        <Typography paragraph>
+                            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over
+                        </Typography>
+                        <BreweryMap lat={data.latitude} long={data.longitude} name={data.name} ></BreweryMap>
+                    </CardContent>
+                </Collapse>
             </Card>
         </div>
     )

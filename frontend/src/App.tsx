@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './App.css';
 import BreweryCard from './BreweryCard/BreweryCard';
 import Grid from '@material-ui/core/Grid';
+import BreweryMap from './BreweryCard/BreweryMap';
 
 const testBrew: Brewery = {
   id: 64,
@@ -52,8 +53,8 @@ export type Brewery = {
   state: string,
   postal_code: string,
   country: string,
-  latitude: string,
-  longitude: string,
+  latitude: string | null,
+  longitude: string | null,
   phone: string,
   updated_at: string,
   created_at: string,
@@ -67,7 +68,7 @@ function App() {
   const [brewDetailOpen, setBrewDetailOpen] = useState(false);
 
   const loadAllBrew = async () => {
-    const result = await fetch(`https://api.openbrewerydb.org/breweries?per_page=20`);
+    const result = await fetch(`https://api.openbrewerydb.org/breweries?per_page=6`);
     const json = await result.json();
     setBrewData(json);
     console.log(json);
@@ -101,6 +102,9 @@ function App() {
         <input type="text" value={brewSearch} required onChange={(e) => {handleChange(e)}}></input>
         <input type="submit" value="SEARCH"/>
       </form>
+
+      <br></br>
+      <br></br>
       <div>
       <Grid 
         container 
