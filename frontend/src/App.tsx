@@ -34,17 +34,13 @@ function App() {
     const result = await fetch(`https://api.openbrewerydb.org/breweries?per_page=25`);
     const json = await result.json();
     setBrewData(json);
-    console.log(json);
   }
 
   
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let form = e.target as HTMLFormElement
-    console.log('searching for ', brewSearch);
     let resp = await fetch(`https://api.openbrewerydb.org/breweries/search?query=${brewSearch}`);
     let json = await resp.json();
-    console.log('new resp', json);
     setBrewData(json);
 
   };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Brewery } from '../App';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
@@ -8,7 +8,6 @@ import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { orange, red } from '@mui/material/colors';
 import SportsBarIcon from '@mui/icons-material/SportsBar';
 import MapIcon from '@mui/icons-material/Map';
 import Link from '@material-ui/core/Link';
