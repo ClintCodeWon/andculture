@@ -3,18 +3,15 @@ import { Brewery } from '../App';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { orange, red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
+import SportsBarIcon from '@mui/icons-material/SportsBar';
+import Link from '@material-ui/core/Link';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import BreweryMap from './BreweryMap';
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -47,21 +44,23 @@ const BreweryCard: React.FC<Props> = ({data}) => {
         setExpanded(!expanded);
     }
 
-    const hadCoordinates = (data.latitude != null && data.longitude != null) ? true : false
+    const hasWebsite = (data.website_url != null) ? true: false;
+
+    const hasCoordinates = (data.latitude != null && data.longitude != null) ? true : false
+
     return (
         <div>
             <Card>
                 <CardHeader
                     title={data.name}
-                    subheader={data.brewery_type}
                 />
-    
                 <CardContent>
-                    <Typography variant="body2" color="text.secondary">
-                    This impressive paella is a perfect party dish and a fun meal to cook
-                    </Typography>
+                    <Typography variant='subtitle1'>Type: {data.brewery_type}</Typography>
                 </CardContent>
                 <CardActions disableSpacing>
+                    {hasWebsite ? <Link href={data.website_url} target="_blank">
+                        <SportsBarIcon />
+                    </Link>: <div/>}
                     <ExpandMore
                     expand={expanded}
                     onClick={handleExpandClick}
@@ -73,10 +72,14 @@ const BreweryCard: React.FC<Props> = ({data}) => {
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit={true}>
                     <CardContent>
-                        <Typography paragraph>
-                            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over
+                        <Typography>
+                            Location: {data.street}, {data.city}, {data.state}, {data.postal_code}
                         </Typography>
-                        <BreweryMap lat={data.latitude} long={data.longitude} name={data.name} ></BreweryMap>
+                        <Typography>
+                            Phone: {data.phone}
+                        </Typography>
+                        {hasCoordinates ? <BreweryMap lat={data.latitude} long={data.longitude} name={data.name} />
+                                            : <div></div>}
                     </CardContent>
                 </Collapse>
             </Card>

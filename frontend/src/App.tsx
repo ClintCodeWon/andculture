@@ -4,77 +4,40 @@ import BreweryCard from './BreweryCard/BreweryCard';
 import Grid from '@material-ui/core/Grid';
 import BreweryMap from './BreweryCard/BreweryMap';
 
-const testBrew: Brewery = {
-  id: 64,
-  name: "10-56 Brewing Company",
-  brewery_type: "micro",
-  street: "400 Brown Cir",
-  city: "Knox",
-  state: "Indiana",
-  postal_code: "46534",
-  country: "United States",
-  longitude: "-86.627954",
-  latitude: "41.289715",
-  phone: "6308165790",
-  website_url: null,
-  updated_at: "2021-10-23T02:24:55.243Z",
-  created_at: "2021-10-23T02:24:55.243Z"
-}
-
-const testBrew2: Brewery = {
-  id: 65,
-  name: "Brewing Company",
-  brewery_type: "micro",
-  street: "n Cir",
-  city: "Knox",
-  state: "Indiana",
-  postal_code: "46534",
-  country: "United States",
-  longitude: "-86.627954",
-  latitude: "41.289715",
-  phone: "6308165790",
-  website_url: null,
-  updated_at: "2021-10-23T02:24:55.243Z",
-  created_at: "2021-10-23T02:24:55.243Z"
-}
-
-const testbrewArr: Brewery[] = []
-
 
 export type Brewery = {
   id: number | string, 
   name: string,
   brewery_type: string,
   street: string,
-  address_2?: string | null,
-  address_3?: string | null, 
+  address_2: string | null,
+  address_3: string | null, 
   city: string,
   country_province? : string | null, 
   state: string,
   postal_code: string,
   country: string,
-  latitude: string | null,
-  longitude: string | null,
+  latitude: string,
+  longitude: string,
   phone: string,
   updated_at: string,
   created_at: string,
-  website_url?: string | null
+  website_url: string
 }
 
 function App() {
 
   const [brewData, setBrewData] = useState([] as Brewery[]);
   const [brewSearch, setBrewSearch] = useState('');
-  const [brewDetailOpen, setBrewDetailOpen] = useState(false);
 
   const loadAllBrew = async () => {
-    const result = await fetch(`https://api.openbrewerydb.org/breweries?per_page=6`);
+    const result = await fetch(`https://api.openbrewerydb.org/breweries?per_page=25`);
     const json = await result.json();
     setBrewData(json);
     console.log(json);
   }
 
-
+  
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let form = e.target as HTMLFormElement

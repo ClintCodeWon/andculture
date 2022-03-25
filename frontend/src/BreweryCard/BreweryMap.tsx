@@ -12,8 +12,8 @@ const MarkerComponent: React.FC<MarkerProps> = ({text}) => {
 }
 
 type Props = {
-    lat: string | null,
-    long: string | null, 
+    lat: string,
+    long: string, 
     name: string
 }
 
@@ -29,11 +29,11 @@ const BreweryMap: React.FC<Props> = ({lat, long, name}) => {
           lat: parseFloat(lat),
           lng: parseFloat(long)
         },
-        zoom: 20
+        zoom: 15
       };
 
     return (
-        <div  style={{ height: '100vh', width: '100%' }}>
+        <div  style={{ height: '35rem', width: '100%' }}>
            <GoogleMapReact
             bootstrapURLKeys={{key: 'AIzaSyCgfz6i9HhNV3yDPgAvny8TqoHu5CQsh_Q'}}
             defaultCenter={Coordinates.center}
