@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 const API_KEY = 'AIzaSyCgfz6i9HhNV3yDPgAvny8TqoHu5CQsh_Q';
 
 type MarkerProps = {
+    lat: number,
+    lng: number,
     text: string
 }
 
-const MarkerComponent: React.FC<MarkerProps> = ({text}) => {
-    return <p>{text}</p>
-}
+const MarkerComponent: React.FC<MarkerProps> = ({lat, lng,  text }) => <LocationOnIcon>{text}</LocationOnIcon>;
 
 type Props = {
     lat: string,
@@ -39,7 +40,7 @@ const BreweryMap: React.FC<Props> = ({lat, long, name}) => {
             defaultCenter={Coordinates.center}
             defaultZoom={Coordinates.zoom}
            >
-               <MarkerComponent text={name}></MarkerComponent>
+               <MarkerComponent lat={Coordinates.center.lat} lng={Coordinates.center.lng} text={name}></MarkerComponent>
            </GoogleMapReact>
      
         </div>

@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import './App.css';
+import './App.scss';
 import BreweryCard from './BreweryCard/BreweryCard';
 import Grid from '@material-ui/core/Grid';
-import BreweryMap from './BreweryCard/BreweryMap';
+import BreweryMap from './BreweryMap/BreweryMap';
 
 
 export type Brewery = {
@@ -60,27 +60,27 @@ function App() {
 
   return (
     <div className="App">
-      <form onSubmit={(e) => {handleSubmit(e)}}>
-        <h2>Search for Beer: </h2>
-        <input type="text" value={brewSearch} required onChange={(e) => {handleChange(e)}}></input>
-        <input type="submit" value="SEARCH"/>
-      </form>
-
-      <br></br>
-      <br></br>
+      <div className='App-header'>
+        <form onSubmit={(e) => {handleSubmit(e)}}>
+          <h2>Search for Beer: </h2>
+          <input type="text" value={brewSearch} required onChange={(e) => {handleChange(e)}}></input>
+          <input type="submit" value="SEARCH"/>
+        </form>
+      </div>
+      <div className='padding' />
       <div>
-      <Grid 
-        container 
-        spacing={3} 
-        direction="row"
-        justifyContent="center"
-        alignItems="center">
-        {brewData?.map(brewery => (
-          <Grid item key={brewery.id} xs={12} sm={4}>
-            <BreweryCard data={brewery} />
-          </Grid>
-        ))}
-      </Grid>
+        <Grid 
+          container 
+          spacing={3} 
+          direction="row"
+          justifyContent="center"
+          alignItems="center">
+          {brewData?.map(brewery => (
+            <Grid item key={brewery.id} xs={12} sm={4}>
+              <BreweryCard data={brewery} />
+            </Grid>
+          ))}
+        </Grid>
       </div>
     </div>
   );

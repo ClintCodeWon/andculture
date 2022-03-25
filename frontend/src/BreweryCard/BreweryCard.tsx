@@ -10,9 +10,11 @@ import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { orange, red } from '@mui/material/colors';
 import SportsBarIcon from '@mui/icons-material/SportsBar';
+import MapIcon from '@mui/icons-material/Map';
 import Link from '@material-ui/core/Link';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import BreweryMap from './BreweryMap';
+import BreweryMap from '../BreweryMap/BreweryMap';
+import "./styles.scss";
 
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
@@ -34,9 +36,6 @@ type Props = {
 }
 
 const BreweryCard: React.FC<Props> = ({data}) => {
-    // useEffect(() => {
-    //     console.log(`data ${data.name}`);
-    // })
 
     const [expanded, setExpanded] = useState(false);
 
@@ -49,18 +48,20 @@ const BreweryCard: React.FC<Props> = ({data}) => {
     const hasCoordinates = (data.latitude != null && data.longitude != null) ? true : false
 
     return (
-        <div>
+        <div className='wrapper'>
             <Card>
                 <CardHeader
                     title={data.name}
+                    className="header"
                 />
                 <CardContent>
                     <Typography variant='subtitle1'>Type: {data.brewery_type}</Typography>
                 </CardContent>
                 <CardActions disableSpacing>
                     {hasWebsite ? <Link href={data.website_url} target="_blank">
-                        <SportsBarIcon />
+                        <SportsBarIcon className='sport-icon' />
                     </Link>: <div/>}
+                    {hasCoordinates ? <MapIcon/> : <div />}
                     <ExpandMore
                     expand={expanded}
                     onClick={handleExpandClick}
@@ -71,7 +72,7 @@ const BreweryCard: React.FC<Props> = ({data}) => {
                     </ExpandMore>
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit={true}>
-                    <CardContent>
+                    <CardContent className='body'>
                         <Typography>
                             Location: {data.street}, {data.city}, {data.state}, {data.postal_code}
                         </Typography>
